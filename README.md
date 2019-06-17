@@ -1,2 +1,2 @@
-# semaphore-awvs
-semaphore-awvs
+# semaphore-awvs-driver
+semaphore-awvs-driver
