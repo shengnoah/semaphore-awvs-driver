@@ -1,0 +1,12 @@
+sequenceDiagram
+  Django Command->>Django REST API:  业务调用REST API 
+  alt 登陆成功
+  Django REST API->>Django RPC: 取得token成功
+  else 登陆失败
+  Django REST API->>Django RPC: 取得token失败
+  end
+  opt 添加任务
+  Django REST API->>Django RPC: 添加扫描任务
+  Django RPC->>Scanner Driver: 扫描任务
+  Scanner Driver->>AWVS: 扫描
+end

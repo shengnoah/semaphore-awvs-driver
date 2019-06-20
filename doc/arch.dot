@@ -1,0 +1,67 @@
+graph G {
+    rankdir=LR;
+    compound=true;
+    edge [style=invis];
+    node [width="1.8", 
+          shape=box];
+    graph [ranksep="0.5", 
+           pad="0.75", 
+           nodesep="0.3"];
+    subgraph cluster3 {
+        color="#d46b08";
+        fontcolor="#d46b08";
+        style="filled";
+        fillcolor="#ffe7ba";
+        label="第三方驱动层";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [color="#d46b08", 
+              fontcolor="#d46b08", 
+              fillcolor="#ffa940"];
+        "AWVS1" -- "AWVS2";
+        "AWVS2" -- "AWVS3";
+        "AWVS3" -- "AWVS4";
+    }
+
+    subgraph cluster2 {
+        color="#73d13d";
+        style="filled";
+        label="RPC调度";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "扫描器调度1" -- "扫描器调度2";
+        "扫描器调度2" -- "扫描器调度3";
+        "扫描器调度3" -- "扫描器调度4";
+    }
+
+    subgraph cluster1 {
+        color="#d46b08";
+        style="filled";
+        fillcolor="#ffe7ba";
+        label="REST API接口层";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [color="#d46b08", 
+              fontcolor="#d46b08", 
+              fillcolor="#ffa940"];
+        "接口1" -- "接口2";
+        "接口2" -- "接口3";
+        "接口3" -- "接口4";
+        "RPC调用1" -- "RPC调用2";
+        "RPC调用2" -- "RPC调用3";
+        "RPC调用3" -- "RPC调用4";
+    }
+
+    subgraph cluster0 {
+        color="#73d13d";
+        style="filled";
+        label="DSL模拟";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [color="#237804", 
+              fontcolor="#237804", 
+              style=filled, 
+              fillcolor="#73d13d"];
+        "登陆模拟" -- "注册扫描";
+        "注册扫描" -- "邮件报告";
+        "邮件报告" -- "日志输出";
+    }
+}
+
