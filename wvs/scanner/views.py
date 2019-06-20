@@ -11,9 +11,7 @@ from jsonrpc import jsonrpc_method
 
 @jsonrpc_method('myapp.autoscan')
 def auto_scan(request, domain='lua.ren'):
-    return "Domain %s" % domain
-
-
+    return "candylab","abc" 
 
 @jsonrpc_method('myapp.sayHello')
 def whats_the_time(request, name='Lester'):
