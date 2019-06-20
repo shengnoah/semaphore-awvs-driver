@@ -30,7 +30,8 @@ class Command(BaseCommand):
 
             from jsonrpc.proxy import ServiceProxy
             s = ServiceProxy('http://localhost:5000/json/') 
-            s.myapp.sayHello('Sam')
+            #s.myapp.sayHello('Sam')
+            s.myapp.autoscan('candylab.net')
             
             self.stdout.write(self.style.SUCCESS(u'命令%s执行成功, 参数为%s' % (__file__, options['index'])))
         except Exception, ex:
