@@ -47,6 +47,6 @@ def test_5(setup_module):
     from jsonrpc.proxy import ServiceProxy
     s = ServiceProxy('http://localhost:5000/json/') 
     ret = s.myapp.autoscan('candylab.net')
-    print(ret['result'])
-    assert ret['result'] <> "abc"
+    print(ret['result'][0])
+    assert ret['result'][0] <> "abc"
     
