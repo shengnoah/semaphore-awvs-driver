@@ -40,3 +40,13 @@ def test_4(setup_module):
     assert 2==1+1          
 
 
+@pytest.mark.scan
+def test_5(setup_module):
+    print('Test_5 called.')
+    print('*************.')
+    from jsonrpc.proxy import ServiceProxy
+    s = ServiceProxy('http://localhost:5000/json/') 
+    ret = s.myapp.autoscan('candylab.net')
+    print(ret['result'])
+    assert ret['result'] <> "abc"
+    
