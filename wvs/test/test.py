@@ -32,8 +32,9 @@ def test_3(setup_module):
 @pytest.mark.scan
 def test_4(setup_module):
     print('Test_4 called.\n')
+    print("==================")
     import awvs 
-    ins = awvs.AWVS("test1.com")
+    ins = awvs.AWVS("testcase.com")
     print ins.domain
     print("*********")
     print(ins.send(1))
@@ -44,6 +45,8 @@ def test_4(setup_module):
 
 @pytest.mark.scan
 def test_5(setup_module):
+    print('Test_5 called.\n')
+    print("==================")
     #print('Test_5 called.')
     #print('*************.')
     #from jsonrpc.proxy import ServiceProxy
@@ -54,3 +57,25 @@ def test_5(setup_module):
     assert 1==1
 
 
+@pytest.mark.scan
+def test_6(setup_module):
+    print('Test_6 called.\n')
+    print("==================")
+    import awvs 
+    ins = awvs.AWVS("testcase.com")
+    ins.auth({"email":"name", "password":"pwd"})
+    print ins.domain
+    assert 1==1
+
+
+
+@pytest.mark.scan
+def test_7(setup_module):
+    print('Test_7 called.\n')
+    print("==================")
+    import awvs 
+    ins = awvs.AWVS("test1.com")
+    ins.auth({"email":"name", "password":"pwd"})
+    ins.addTask(['lua.ren\n','candylab.net\n'])
+    print ins.domain
+    assert 1==1

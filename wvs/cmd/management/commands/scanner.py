@@ -5,11 +5,11 @@ import traceback
 class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument(
-            '-d',
-            '--domain',
+            '-i',
+            '--index',
             action='store',
-            dest='domain',
-            default='lua.ren',
+            dest='index',
+            default='close',
             help='name of author.',
         )
         parser.add_argument(
@@ -23,16 +23,17 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         try:
-            if options['domain']:
-                print 'scan domain, %s' % options['domain']
+            if options['index']:
+                print 'hello world, %s' % options['index']
             if options['file']:
                 print 'input file, %s' % options['file']
 
             from jsonrpc.proxy import ServiceProxy
             s = ServiceProxy('http://localhost:5000/json/') 
-            s.myapp.autoscanner('candylab.net')
-
-            self.stdout.write(self.style.SUCCESS(u'命令%s执行成功, 参数为%s' % (__file__, options['domain'])))
+            #s.myapp.sayHello('Sam')
+            s.myapp.autoscan('candylab.net')
+            
+            self.stdout.write(self.style.SUCCESS(u'命令%s执行成功, 参数为%s' % (__file__, options['index'])))
         except Exception, ex:
             traceback.print_exc()
             self.stdout.write(self.style.ERROR(u'命令执行出错'))

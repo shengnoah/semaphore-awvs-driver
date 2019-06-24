@@ -13,6 +13,14 @@ from jsonrpc import jsonrpc_method
 def auto_scan(request, domain='lua.ren'):
     return "candylab","abc" 
 
+@jsonrpc_method('myapp.autoscanner')
+def auto_scanner(request, domain='lua.ren'):
+    import awvs 
+    ins = awvs.AWVS("testcase.com")
+    ins.auth({"email":"name", "password":"pwd"})
+    ins.addTask(['lua.ren\n','candylab.net\n'])
+    return "candylab","abc" 
+
 @jsonrpc_method('myapp.sayHello')
 def whats_the_time(request, name='Lester'):
   import awvs
