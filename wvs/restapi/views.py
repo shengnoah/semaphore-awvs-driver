@@ -137,3 +137,38 @@ def outputJson(request):
         return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
     
     return HttpResponse('test',content_type="text/plain")
+
+
+
+@csrf_exempt
+def addItem(request):
+    if request.method == 'GET':
+        return JSONResponse("GET")
+    
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        flg_key = data.has_key('key')
+        if not flg_key:            
+            return JSONResponse('key is empty!')
+
+        access_key = data['key']
+        if cmp(access_key, "test"):
+            return JSONResponse("access key error.")
+
+        flg_domain = data.has_key('domain')
+        if not flg_domain:            
+            result = {"error":"-1","errmsg":"domain is empty"}
+            return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
+
+
+        from jsonrpc.proxy import ServiceProxy
+        s = ServiceProxy('http://localhost:5000/json/')
+        import awvs 
+        ins = awvs.AWVS()
+        ins.auth({"email":"name", "password":"pwd"})
+        ins.addTask(['lua.ren\n','candylab.net\n'])
+
+        result = {"error":"0","errmsg":"none"}
+        return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
+   
+

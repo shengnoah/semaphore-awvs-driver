@@ -212,8 +212,78 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR(u'命令执行出错'))
 ```
 
+# 5. REST API实现
+
+
+将功能性的内容用RPC实现， 将check业务划分和检查放到了REST API层，这样后端服务调用依赖RPC Server和RPC Client，而REST API调用层不用考虑这个问题。
+
+
+```python
+@csrf_exempt
+def addItem(request):
+    if request.method == 'GET':
+        return JSONResponse("GET")
+    
+    if request.method == 'POST':
+        data = JSONParser().parse(request)
+        flg_key = data.has_key('key')
+        if not flg_key:            
+            return JSONResponse('key is empty!')
+
+        access_key = data['key']
+        if cmp(access_key, "test"):
+            return JSONResponse("access key error.")
+
+        flg_domain = data.has_key('domain')
+        if not flg_domain:            
+            result = {"error":"-1","errmsg":"domain is empty"}
+            return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
+
+
+        from jsonrpc.proxy import ServiceProxy
+        s = ServiceProxy('http://localhost:5000/json/')
+        import awvs 
+        ins = awvs.AWVS()
+        ins.auth({"email":"name", "password":"pwd"})
+        ins.addTask(['lua.ren\n','candylab.net\n'])
+
+        result = {"error":"0","errmsg":"none"}
+        return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
+```
+
+
+Django REST让REST的实现更便利，这样可以把重点放到业务逻辑检查对接，相对单层的测试更有重点。
+
+REST API路由可以快速建立。
+
+```python
+urlpatterns = [
+    url(r'scanner/$', views.addItem),          
+]
+```
+
+用CURL客户端测试REST API。
+
+```
+curl -l -H "Content-type: application/json" -X POST -d '{"key":"test","domain":"test.com"}'  127.0.0.1:8080/scanner/
+```
 
 
 
 
+# 6. 命令行
 
+
+最终我们实现了AWVS的REST API的RPC和REST封装，然后命令行化，当然的其中RPC和REST API可以其它的地方复用。
+
+## 6.1 Django Command
+
+```
+python manage.py dsl -d lua.ren
+```
+
+## 6.2 CURL & REST API
+
+```
+curl -l -H "Content-type: application/json" -X POST -d '{"key":"test","domain":"test.com"}'  127.0.0.1:8080/scanner/
+```
