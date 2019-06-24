@@ -62,7 +62,7 @@ meta数据结构中存放的是基本的授权用户信息, email和password。
 用Auth取回的Cookie信息，再进行API的调用，来完玘任务注册。
 
 
-```
+```python
     def addTarget(self, formaturl):
         url="https://localhost:3443/api/v1/targets"
         send_headers2={ 
