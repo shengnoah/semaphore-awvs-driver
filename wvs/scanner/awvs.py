@@ -4,7 +4,7 @@ class AWVS:
 		self.domain = domain
 
     def send(self, level):
-		return "AWVS.send()" 
+	return "done" 
 	
     def login(param):
         import urllib2

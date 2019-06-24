@@ -4,7 +4,7 @@ class AWVS:
 		self.domain = domain
 
     def send(self, level):
-		return 5
+	return self.domain 
 	
     def login(param):
         import urllib2
@@ -27,8 +27,17 @@ class AWVS:
         COOOOOOOOkie = response_login.headers['Set-Cookie']
         print COOOOOOOOkie,xauth
         return True
+    def addTask(self, domainlist):
+        url="https://localhost:3443/api/v1/targets"
+        urllist=open('list.txt','r')
+        formaturl=urllist.readlines()
+        print(formaturl)
+        print(type(formaturl))
 
-    def addTagert(param):
+        print(domainlist)
+        print(type(domainlist))
+
+    def addTarget(self, formaturl):
         url="https://localhost:3443/api/v1/targets"
         urllist=open('list.txt','r')
         formaturl=urllist.readlines()
