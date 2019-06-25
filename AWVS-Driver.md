@@ -156,6 +156,46 @@ def test_7(setup_module):
 
 
 
+## 3.4 自动化测试
+
+这个工程使用的测试工具是pytest。我们想通过自动监听test.py的python单体测试程序源码的变更，自动调用pytest去扫行单体测试脚本。
+
+如果在linux平台一下可以使用tup，是一个很好用的工具。因我们在mac环境下扫行单体测试程序，我们使用fswatch完成这个功能。
+
+
+### 3.4.1 安装fswatch
+
+```
+brew intall fswatch
+```
+
+
+
+### 3.4.2 监听脚本
+
+```shell
+#!/bin/bash 
+DIR=$1 
+if [ ! -n "$DIR" ] ;then 
+    echo "you have not choice Application directory !" 
+    exit 
+fi 
+
+fswatch $DIR | while read file 
+do 
+    #echo "${file} was modify" >> unittest.log 2>&1 
+    echo "${file} was modify" 
+    pytest -v -s -m"scan" ${file} 
+done
+```
+
+### 3.4.3 驱动脚本
+   
+```shell
+#!/bin/bash 
+sh autotest.sh test.py
+```
+
 
 # 4. RPC接口功能
 
