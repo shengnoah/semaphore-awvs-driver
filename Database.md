@@ -5,27 +5,37 @@
 
 
 ## 2.数据库表生成
+```python
 python manage.py migrate
 python manage.py makemigrations
 manage.py showmigrations
 manage.py migrate polls 0004 --fake
+```
 
 
 ## 3.创建Django Admin的root管理员用户
+```python
 python manage.py createsuperuser
+```
 
 ## 4.修改root用户的管理员密码
+```python
 python manage.py changepassword
+```
 
 
 ## 5.交互命令行的方式进入Django的上线文环境
+```python
 python manage.py shell
+```
 
 
 ## 6.修改指定名称用户的密码
 
+```python
 python manage.py shell
 from django.contrib.auth.models import User
 user =User.objects.get(username='admin')
 user.set_password('new_password')
 user.save()
+```
