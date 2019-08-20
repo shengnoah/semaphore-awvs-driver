@@ -39,3 +39,18 @@ user =User.objects.get(username='admin')
 user.set_password('new_password')
 user.save()
 ```
+
+## 7. Django ORM插入操作
+
+这是一个数据插入的Django ORM展示，之后复杂的操作也是基于简单操作的变型。
+
+使用的Django Command调用models数据库类操作，是不用启动WEB服务器的，Django ORM就可以独立完成数据的操作。之后数据插入功能的数据源可能来源于各种数据源形式，不一定只能是HTTP WEB监听一种方式。
+
+
+```python 
+from sidecar.models import cmdb,testcase
+max_id = testcase.objects.all().order_by("-id")[0]
+new_maxid = max_id.id + 1
+testcase.objects.create(id=(max_id.id + 1),name1="a", name2="b", name3="c")
+```
+
